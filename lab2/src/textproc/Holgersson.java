@@ -36,7 +36,7 @@ public class Holgersson {
 		s.close();
 
 		for(TextProcessor a : list){
-			a.report();
+			a.report(); //Skriver ut alla objekt i listan
 		}
 
 	}
