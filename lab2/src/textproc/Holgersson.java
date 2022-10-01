@@ -20,7 +20,7 @@ public class Holgersson {
 		list.add(new SingleWordCounter("norge"));
 		list.add(new MultiWordCounter(REGIONS));
 
-		Scanner s = new Scanner(new File("./lab2/nilsholg.txt"));
+		Scanner s = new Scanner(new File("./lab2/nilsholg1.txt"));
 		s.findWithinHorizon("\uFEFF", 1);
 		s.useDelimiter("(\\s|,|\\.|:|;|!|\\?|'|\\\")+"); // se handledning
 
@@ -36,7 +36,7 @@ public class Holgersson {
 		s.close();
 
 		for(TextProcessor a : list){
-			a.report(); //Skriver ut alla objekt i listan
+			a.report(); 
 		}
 
 	}
