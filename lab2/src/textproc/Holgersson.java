@@ -3,7 +3,10 @@ package textproc;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Holgersson {
 
@@ -20,7 +23,12 @@ public class Holgersson {
 		list.add(new SingleWordCounter("norge"));
 		list.add(new MultiWordCounter(REGIONS));
 
-		Scanner s = new Scanner(new File("./lab2/nilsholg1.txt"));
+
+		Scanner sw = new Scanner(new File(".lab2/undantagsord.txt"), "UTF-8");
+		Map<String, Integer> stopList = new HashMap<String, Integer>();// ??? 
+
+
+		Scanner s = new Scanner(new File("./lab2/nilsholg.txt"), "UTF-8");
 		s.findWithinHorizon("\uFEFF", 1);
 		s.useDelimiter("(\\s|,|\\.|:|;|!|\\?|'|\\\")+"); // se handledning
 
