@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class GeneralWordCounter {
+public class GeneralWordCounter implements TextProcessor{
 
-    private Map<String, Integer> map = new TreeMap<String, Integer>();
+    public Map<String, Integer> map = new TreeMap<String, Integer>();
     private Set<String> stopwords;
 
 
@@ -47,7 +47,7 @@ public class GeneralWordCounter {
 
 
 
-        for(int i = 0; i < 50; i++){
+        for(int i = 0; i < 5; i++){
             System.out.println("------------" + wordList.get(i));
         }
         

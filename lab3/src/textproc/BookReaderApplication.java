@@ -8,23 +8,35 @@ import java.util.Set;
 public class BookReaderApplication {
 
     public static void main(String[] args) throws FileNotFoundException {
-  
-    Scanner s = new Scanner(new File("./lab2/nilsholg.txt"), "UTF-8");
-    s.findWithinHorizon("\uFEFF", 1);
-    s.useDelimiter("(\\s|,|\\.|:|;|!|\\?|'|\\\")+"); // se handledning
 
-    Scanner sw = new Scanner(new File("./lab2/undantagsord.txt"), "UTF-8");
-    sw.useDelimiter(" "); 
+  
+        Scanner s = new Scanner(new File("./lab3/nilsholg.txt"), "UTF-8");
+        s.findWithinHorizon("\uFEFF", 1);
+        s.useDelimiter("(\\s|,|\\.|:|;|!|\\?|'|\\\")+"); // se handledning
+
+        Scanner sw = new Scanner(new File("./lab3/undantagsord.txt"), "UTF-8");
+        sw.useDelimiter(" "); 
     
 
-    Set<String> words = new HashSet<String>();
+        Set<String> words = new HashSet<String>();
 
-    while(sw.hasNext()){
-        String word = sw.next().toLowerCase();
-        words.add(word);
+        while(sw.hasNext()){
+            String word = sw.next().toLowerCase();
+            words.add(word);
+        }
+
+        GeneralWordCounter wc = new GeneralWordCounter(words);
+
+        while(s.hasNext()){
+            String word = s.next().toLowerCase();
+
+            wc.process(word);
+        }
+
+        s.close();
+        sw.close();
+
+        BookReaderController bc = new BookReaderController(wc);
+
     }
-
-    BookReaderController bc = new BookReaderController(null);
-
-}
 }
