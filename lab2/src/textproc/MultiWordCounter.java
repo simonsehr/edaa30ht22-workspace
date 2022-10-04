@@ -2,11 +2,12 @@ package textproc;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MultiWordCounter implements TextProcessor{
 
 
-    private Map<String, Integer> map = new HashMap<String, Integer>();
+    private Map<String, Integer> map = new TreeMap<String, Integer>();
 
 
     public MultiWordCounter(String[] a){
@@ -16,15 +17,11 @@ public class MultiWordCounter implements TextProcessor{
     }
 
     public void process(String w){
-        
-        for(String key : map.keySet()){
-            int nbr = map.get(key);
-            if(key.equals(w)){
-                map.replace(key, nbr += 1);
-            }
+        if(map.containsKey(w)){
+            int nbr = map.get(w);
+            map.replace(w, nbr += 1);
 
         }
-
     }
 
     public void report(){

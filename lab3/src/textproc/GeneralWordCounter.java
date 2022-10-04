@@ -1,15 +1,13 @@
 package textproc;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class GeneralWordCounter implements TextProcessor{
+public class GeneralWordCounter {
 
     private Map<String, Integer> map = new TreeMap<String, Integer>();
     private Set<String> stopwords;
@@ -37,7 +35,7 @@ public class GeneralWordCounter implements TextProcessor{
         }*/
         Set<Map.Entry<String, Integer>> wordSet = map.entrySet();
         List<Map.Entry<String, Integer>> wordList = new ArrayList<>(wordSet);
-        Collections.sort(wordList, null);
+
         wordList.sort((a,b) -> {
 
             if(b.getValue().compareTo(a.getValue()) != 0 ){
