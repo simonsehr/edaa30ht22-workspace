@@ -1,12 +1,7 @@
 package textproc;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.util.Map;
-
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import java.awt.*;
 import javax.swing.*;
+import java.util.Map.Entry;
 
 
 
@@ -22,7 +17,11 @@ public class BookReaderController {
 
         SortedListModel listModel = new SortedListModel(counter.getWordList());
         JList<SortedListModel> myList = new JList<SortedListModel>(listModel);
+        //myList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
         JFrame frame = new JFrame(title);
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container pane = frame.getContentPane();
 
@@ -30,14 +29,27 @@ public class BookReaderController {
 
         JScrollPane scrollPane = new JScrollPane(myList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //scrollPane.setPreferredSize(new Dimension(width, height));
+        scrollPane.setPreferredSize(new Dimension(width, height));
 
         //JRadioButton sortAlphabetical = new JRadioButton("Alphabetically sorted");
         //JRadioButton sortFrequency = new JRadioButton("Frequency sorted");
 
         JPanel panel = new JPanel();
-        JButton Alphabetical = new JButton();
+        JButton Alphabetical = new JButton("Alphabetic");
+        JButton Frequency = new JButton("Frequency");
+
+        Alphabetical.setSelected(true);
+        
         panel.add(Alphabetical);
+        panel.add(Frequency);
+
+
+
+
+
+
+
+
         
 
 
@@ -45,7 +57,7 @@ public class BookReaderController {
         pane.add(panel, BorderLayout.CENTER);
  
 
-
+        //frame.setSize(1000, 1000);
         frame.pack();
         frame.setVisible(true);
 
