@@ -34,10 +34,8 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 				last = node;
 			}
 		}
-
 		size++;
 		return true;
-
 	}
 	
 	/**	
