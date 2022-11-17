@@ -1,43 +1,27 @@
 package testqueue;
 import queue_singlelinkedlist.FifoQueue;
-
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
-import queue_singlelinkedlist.FifoQueue;
-
-import java.util.NoSuchElementException;
-import java.util.Queue;
-import java.util.Iterator;
 
 public class TestAppendFifoQueue {
 
     private FifoQueue<Integer> myIntQueue;
     private FifoQueue<Integer> myIntQueue2;
-	private FifoQueue<String> myStringQueue;
   
 
 	@BeforeEach
 	void setUp() {
 		myIntQueue = new FifoQueue<Integer>();
         myIntQueue2 = new FifoQueue<Integer>();
-		myStringQueue = new FifoQueue<String>();
 	}
 
 	@AfterEach
 	void tearDown(){
 		myIntQueue = null;
         myIntQueue2 = null;
-		myStringQueue = null;
 	}
 
     //Tester
@@ -67,26 +51,44 @@ public class TestAppendFifoQueue {
     void testNoQueueEmpty(){
 
         int a = 10;
-        int b = 20;
+
         for(int i = 0; i <= a; i++){
             myIntQueue.offer(i);
+            myIntQueue2.offer(i + 10);
         }
-        for(int i = 11; i <= b; i++){
-            myIntQueue2.offer(i);
-        }
+        assertTrue(!myIntQueue.isEmpty() , "Queue not successful");
+        assertTrue(!myIntQueue2.isEmpty() , "Queue not successful");
+
         myIntQueue.append(myIntQueue2);
-        Iterator<Integer> itr = myIntQueue.iterator();
 
-        for (int i = 1; i <= b; i++) {
-            int r = itr.next();
-            System.out.println(r);
-            assertEquals(Integer.valueOf(i), r, "Wrong result from next");
-        }
+        assertTrue(myIntQueue2.isEmpty() , "Queue2 is not empty");
+        assertTrue(!myIntQueue.isEmpty() , "Queue not successful");
+    }   
 
-        assertTrue(myIntQueue2.isEmpty(), "Queue successful");
+    @Test
 
-    }
+    void testSize(){
 
-   
-    
+        myIntQueue.offer(1);
+        myIntQueue.offer(2);
+        assertTrue(myIntQueue.size() == 2 && myIntQueue2.size() == 0, "Size wrong");
+
+        myIntQueue.poll();
+        myIntQueue.poll();
+        myIntQueue2.offer(1);
+        myIntQueue2.offer(2);
+        assertTrue(myIntQueue.size() == 0 && myIntQueue2.size() == 2, "Size wrong");
+
+        myIntQueue.offer(1);
+        myIntQueue.offer(2);
+        assertTrue(myIntQueue.size() == 2 && myIntQueue2.size() == 2, "Size wrong");
+    } 
+
+
+    @Test
+	void testOnItself() {
+		assertThrows(IllegalArgumentException.class, () -> myIntQueue.append(myIntQueue));
+        assertThrows(IllegalArgumentException.class, () -> myIntQueue2.append(myIntQueue2));
+	}
+  
 }

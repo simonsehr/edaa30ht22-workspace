@@ -97,59 +97,6 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 	public Iterator<E> iterator() {
 		return new QueIterator();
 	}
-	
-	private static class QueueNode<E> {
-		E element;
-		QueueNode<E> next;
-
-		private QueueNode(E x) {
-			element = x;
-			next = null;
-		}
-	}
-
-	private class QueIterator implements Iterator<E>{
-		private QueueNode<E> pos;
-
-		private QueIterator(){
-			pos = last;
-
-		}
-
-		public boolean hasNext(){
-			/**pos = last.next;
-			if(last.next.element == pos.element){
-				return false;
-			}
-			return true;*/
-
-			if (pos != null) {
-				if (pos.next != null) {
-					return true;
-				}
-				else {
-					return false;
-				}	
-				
-			} 
-			return false;
-		}
-
-		public E next(){
-			if(pos == null || pos.next == null){
-				throw new NoSuchElementException();
-			}
-
-			if(pos.next.equals(last)){ 
-				E element = pos.next.element;
-				pos=null;
-				return element;
-			}
-			pos=pos.next; 
-			return pos.element;	
-
-		}
-	}
 
 	/**
 	* Appends the specified queue to this queue
@@ -159,7 +106,7 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 	* @throws IllegalArgumentException if this queue and q are identical
 	*/
 	public void append(FifoQueue<E> q){
-		if(this .equals(q)){
+		if(this.equals(q)){
 			throw new IllegalArgumentException();
 		}else if(this.isEmpty() && q.isEmpty() || q.isEmpty() || this.isEmpty()){
 			throw new IllegalArgumentException();
@@ -181,6 +128,72 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 		this.last = temp;
 
 		q.clear();
+	}
+
+	private static class QueueNode<E> {
+		E element;
+		QueueNode<E> next;
+
+		private QueueNode(E x) {
+			element = x;
+			next = null;
+		}
+	}
+
+	private class QueIterator implements Iterator<E>{
+		private QueueNode<E> pos;
+
+		private QueIterator(){
+
+			pos = last;
+
+			/*if (last != null) {
+				if (last.next != null) {
+					pos = last;
+				}
+				else {
+					pos = null;
+				}
+			 } else {
+				pos = null;
+			 }*/
+
+		}
+
+		public boolean hasNext(){
+			/*pos = last.next;
+			if(last.next.element == pos.element){
+				return false;
+			}
+			return true;*/
+
+			if (pos != null) {
+				if (pos.next != null) {
+					return true;
+				}
+				else {
+					return false;
+				}	
+				
+			} 
+			return false;
+		}
+		
+		public E next() {
+			if (pos == null || pos.next == null) {
+				throw new NoSuchElementException();
+			}
+			if (pos.next == last) {
+				E element = pos.next.element;
+				pos = null;
+				return element;
+			}
+
+			pos = pos.next;
+			return pos.element;
+		}
+
+
 	}
 
 }
