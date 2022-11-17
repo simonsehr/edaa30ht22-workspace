@@ -44,6 +44,8 @@ public class BookReaderController {
         group.add(b1);
         group.add(b2);
 
+
+        //Sortring
         b1.addActionListener(e -> listModel.sort(
             (x, y) -> ((Entry<String, Integer>) x).getKey().compareTo(((Entry<String, Integer>) y).getKey())));
         b2.addActionListener(e -> listModel
@@ -61,15 +63,41 @@ public class BookReaderController {
         b2.addActionListener( (n) -> { System.out.println("Frequency"); } );
 
         //Sökfält och sökfältsknapp
+
+        JPanel searchPanel = new JPanel();
         JTextField searchField = new JTextField();
-        JButton searchButton = new JButton("Search");
-        panel.add(searchField);
-        panel.add(searchButton);
+        JButton searchButton = new JButton("Find");
+        searchField.setPreferredSize(new Dimension(500, (int) searchButton.getPreferredSize().getHeight()));
+        searchPanel.add(searchButton);
+        searchPanel.add(searchField);
+        frame.getRootPane().setDefaultButton(searchButton);
+
+
+        searchButton.addActionListener(e -> {
+            String searchedKey = searchField.getText().toLowerCase().trim();
+            boolean found = false;
+
+            for (int i = 0; i < listModel.getSize(); i++) {
+                String currentKey = ((Entry<String, Integer>) listModel.getElementAt(i)).getKey();
+
+                if (currentKey.equals(searchedKey)) {
+                    myList.setSelectedIndex(i);
+                    myList.ensureIndexIsVisible(i);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                JOptionPane.showMessageDialog(frame, "Word not found");
+            }
+        });
 
 
 
         pane.add(scrollPane, BorderLayout.NORTH);
         pane.add(panel, BorderLayout.CENTER);
+        pane.add(searchPanel, BorderLayout.SOUTH);
 
         //program exit-knapp
         panel.add(Exit);
