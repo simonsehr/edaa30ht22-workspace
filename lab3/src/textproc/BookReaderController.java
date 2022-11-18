@@ -45,7 +45,7 @@ public class BookReaderController {
         group.add(b2);
 
 
-        //Sortring
+        //Sortering
         b1.addActionListener(e -> listModel.sort(
             (x, y) -> ((Entry<String, Integer>) x).getKey().compareTo(((Entry<String, Integer>) y).getKey())));
         b2.addActionListener(e -> listModel
