@@ -1,6 +1,8 @@
 package textproc;
 import java.awt.*;
 import javax.swing.*;
+
+import java.util.Map;
 import java.util.Map.Entry;
 import java.awt.event.*;  
 
@@ -19,8 +21,10 @@ public class BookReaderController {
     private void createWindow(GeneralWordCounter counter, String title, int width, int height) {
 
 
-        SortedListModel listModel = new SortedListModel(counter.getWordList());
-        JList<SortedListModel> myList = new JList<SortedListModel>(listModel);
+        SortedListModel<Map.Entry<String, Integer>> listModel = new SortedListModel<Map.Entry<String, Integer>>(counter.getWordList());
+        JList<Map.Entry<String, Integer>> myList = new JList<Map.Entry<String, Integer>>(listModel);
+
+
         //myList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 
@@ -33,22 +37,19 @@ public class BookReaderController {
         JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setPreferredSize(new Dimension(width, height));
 
-        //JRadioButton sortAlphabetical = new JRadioButton("Alphabetically sorted");
-        //JRadioButton sortFrequency = new JRadioButton("Frequency sorted");
-
-
         //Knappar
         b1 = new JRadioButton("Alphabetic");
         b2 = new JRadioButton("Frequency");
         ButtonGroup group = new ButtonGroup();
         group.add(b1);
         group.add(b2);
-
-
+        
         //Sortering
-        b1.addActionListener(e -> listModel.sort(
-            (x, y) -> ((Entry<String, Integer>) x).getKey().compareTo(((Entry<String, Integer>) y).getKey())));
-        b2.addActionListener(e -> listModel
+        b1.addActionListener(event -> listModel.sort( (x, y) -> { 
+            return ((Entry<String, Integer>) x).getKey().compareTo(((Entry<String, Integer>) y).getKey());
+        }));
+
+        b2.addActionListener(event -> listModel
             .sort((x, y) -> -(((Entry<String, Integer>) x).getValue() - ((Entry<String, Integer>) y).getValue()))); 
 
 
@@ -65,9 +66,9 @@ public class BookReaderController {
         //Sökfält och sökfältsknapp
 
         JPanel searchPanel = new JPanel();
-        JTextField searchField = new JTextField();
+        JTextField searchField = new JTextField(20);
         JButton searchButton = new JButton("Find");
-        searchField.setPreferredSize(new Dimension(500, (int) searchButton.getPreferredSize().getHeight()));
+        //searchField.setPreferredSize(new Dimension(500, (int) searchButton.getPreferredSize().getHeight()));
         searchPanel.add(searchButton);
         searchPanel.add(searchField);
         frame.getRootPane().setDefaultButton(searchButton);
@@ -111,13 +112,13 @@ public class BookReaderController {
 
     }
 
-    public void actionPerformed(ActionEvent e){    
+    /*public void actionPerformed(ActionEvent e){    
         if(b1.isSelected()){    
         System.out.println("Alphabetic");        
         }    
         if(b2.isSelected()){    
         System.out.println("Frequency");    
         }    
-        }  
+    }  */
 
 }
