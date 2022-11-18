@@ -89,6 +89,18 @@ public class TestAppendFifoQueue {
 	void testOnItself() {
 		assertThrows(IllegalArgumentException.class, () -> myIntQueue.append(myIntQueue));
         assertThrows(IllegalArgumentException.class, () -> myIntQueue2.append(myIntQueue2));
+
+        int a = 5;
+        for(int i = 1; i <= a; i++){
+            myIntQueue.offer(i);
+            myIntQueue2.offer(i+5);
+        }
+
+        myIntQueue.append(myIntQueue2);
+
+        assertThrows(IllegalArgumentException.class, () -> myIntQueue.append(myIntQueue));
+
+
 	}
   
 }
