@@ -50,7 +50,7 @@ public class BookReaderController {
         }));
 
         b2.addActionListener(event -> listModel
-            .sort((x, y) -> -(((Entry<String, Integer>) x).getValue() - ((Entry<String, Integer>) y).getValue()))); 
+            .sort((x, y) -> -((x).getValue() - ( y).getValue()))); 
 
 
         JPanel panel = new JPanel();
